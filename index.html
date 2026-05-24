@@ -1360,34 +1360,7 @@ body {
 <!-- ===================== SECTION END ===================== -->
 
 
-<!-- ===================== MODAL ===================== -->
-<div class="vc-modal-overlay" id="vcModalOverlay" onclick="vcCloseModal(event)">
-  <div class="vc-modal" role="dialog" aria-modal="true">
-    <button class="vc-modal__close" onclick="vcCloseModal()" aria-label="Закрыть">✕</button>
 
-    <!-- Form view -->
-    <div id="vcModalForm">
-      <div class="vc-modal__title">Оформить карту</div>
-      <div class="vc-modal__bank" id="vcModalBankLabel"></div>
-      <form class="vc-form" id="vcForm" onsubmit="vcSubmitForm(event)">
-        <input type="text" id="vcName" placeholder="Ваше имя" required autocomplete="name">
-        <input type="tel" id="vcPhone" placeholder="Телефон или Telegram" required>
-        <input type="email" id="vcEmail" placeholder="Email (необязательно)" autocomplete="email">
-        <textarea id="vcComment" placeholder="Комментарий: тариф, валюта, вопросы..." rows="3"></textarea>
-        <button type="submit" class="vc-form__submit">Отправить заявку</button>
-        <p class="vc-form__legal">Нажимая кнопку, вы соглашаетесь с <a href="#">политикой конфиденциальности</a></p>
-      </form>
-    </div>
-
-    <!-- Success view -->
-    <div class="vc-modal__success" id="vcModalSuccess">
-      <div class="vc-modal__success-icon">✅</div>
-      <h3>Заявка принята!</h3>
-      <p>Менеджер свяжется с вами<br>в течение 15 минут.</p>
-    </div>
-  </div>
-</div>
-<!-- ===================== MODAL END ===================== -->
 
 
 <script>
@@ -1469,65 +1442,20 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// ---- Modal ----
-const vcOverlay = document.getElementById('vcModalOverlay');
-const vcModalBankLabel = document.getElementById('vcModalBankLabel');
-const vcModalFormEl = document.getElementById('vcModalForm');
-const vcModalSuccessEl = document.getElementById('vcModalSuccess');
-
+// ---- Modal — открывает форму Tilda через #form:all ----
 function vcOpenModal(bankName) {
-  vcModalBankLabel.textContent = bankName;
-  vcModalFormEl.style.display = 'block';
-  vcModalSuccessEl.style.display = 'none';
-  document.getElementById('vcForm').reset();
-  vcOverlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
-  // update URL hash — работает и внутри iframe и напрямую
-  try { history.replaceState(null, '', '#form:all'); } catch(e) {}
-  // сообщаем родительской странице (Tilda) сменить хэш
-  try { window.parent.postMessage({type: 'vcHash', hash: '#form:all'}, '*'); } catch(e) {}
-  setTimeout(() => document.getElementById('vcName').focus(), 200);
+  // Если внутри iframe — открываем форму Tilda на родительской странице
+  try {
+    if (window.parent && window.parent !== window) {
+      window.parent.location.hash = 'form:all';
+      return;
+    }
+  } catch(e) {}
+  // Если открыт напрямую — меняем хэш текущей страницы
+  window.location.hash = 'form:all';
 }
 
-function vcCloseModal(e) {
-  if (e && e.target !== vcOverlay) return;
-  vcOverlay.classList.remove('open');
-  document.body.style.overflow = '';
-  history.replaceState(null, '', window.location.pathname + window.location.search);
-}
 
-// Close on Escape
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && vcOverlay.classList.contains('open')) {
-    vcOverlay.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-});
-
-// Open modal if URL has #form:all on load
-if (window.location.hash === '#form:all') {
-  vcOpenModal('');
-}
-
-// ---- Submit ----
-function vcSubmitForm(e) {
-  e.preventDefault();
-  const data = {
-    bank: vcModalBankLabel.textContent,
-    name: document.getElementById('vcName').value,
-    phone: document.getElementById('vcPhone').value,
-    email: document.getElementById('vcEmail').value,
-    comment: document.getElementById('vcComment').value
-  };
-  // TODO: подключить к вашему бэкенду / Telegram боту
-  console.log('Заявка:', data);
-  vcModalFormEl.style.display = 'none';
-  vcModalSuccessEl.style.display = 'block';
-  setTimeout(() => {
-    vcOverlay.classList.remove('open');
-    document.body.style.overflow = '';
-  }, 3000);
-}
 </script>
 
 </body>
