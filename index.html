@@ -1444,15 +1444,8 @@ document.addEventListener('click', (e) => {
 
 // ---- Modal — открывает форму Tilda через #form:all ----
 function vcOpenModal(bankName) {
-  // Если внутри iframe — открываем форму Tilda на родительской странице
-  try {
-    if (window.parent && window.parent !== window) {
-      window.parent.location.hash = 'form:all';
-      return;
-    }
-  } catch(e) {}
-  // Если открыт напрямую — меняем хэш текущей страницы
-  window.location.hash = 'form:all';
+  // Отправляем сообщение родительской странице Tilda
+  window.parent.postMessage('openForm', '*');
 }
 
 
