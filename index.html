@@ -1482,8 +1482,10 @@ function vcOpenModal(bankName) {
   document.getElementById('vcForm').reset();
   vcOverlay.classList.add('open');
   document.body.style.overflow = 'hidden';
-  // update URL hash
-  history.replaceState(null, '', '#form:all');
+  // update URL hash — работает и внутри iframe и напрямую
+  try { history.replaceState(null, '', '#form:all'); } catch(e) {}
+  // сообщаем родительской странице (Tilda) сменить хэш
+  try { window.parent.postMessage({type: 'vcHash', hash: '#form:all'}, '*'); } catch(e) {}
   setTimeout(() => document.getElementById('vcName').focus(), 200);
 }
 
