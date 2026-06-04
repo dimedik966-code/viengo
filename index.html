@@ -386,13 +386,14 @@ html, body {
 @media (max-width: 768px) {
   .vc-modal-overlay {
     align-items: flex-start;
-    padding: 16px;
+    padding: 12px;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
   .vc-modal {
-    margin-top: 0;
     width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
   }
 }
 
@@ -1468,8 +1469,14 @@ function vcOpenModal(bankName) {
   vcModalSuccessEl.style.display = 'none';
   document.getElementById('vcForm').reset();
   vcOverlay.classList.add('open');
-  // Сообщаем Tilda: зафиксировать скролл + прокрутиться к iframe
-  try { window.parent.postMessage({ type: 'vcModal', action: 'open' }, '*'); } catch(e) {}
+  // Сообщаем Tilda: зафиксировать скролл страницы + прокрутить к началу iframe
+  try {
+    window.parent.postMessage({
+      type: 'vcModal',
+      action: 'open',
+      iframeHeight: document.body.scrollHeight
+    }, '*');
+  } catch(e) {}
   setTimeout(() => { try { document.getElementById('vcName').focus(); } catch(e) {} }, 300);
 }
 
