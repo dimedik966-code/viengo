@@ -21,6 +21,7 @@ body {
   padding: 60px 0 80px;
   background: #ffffff;
   font-family: 'Manrope', -apple-system, sans-serif;
+  -webkit-overflow-scrolling: touch;
 }
 
 .vc-container {
@@ -369,13 +370,21 @@ body {
   inset: 0;
   background: rgba(0,0,0,0.5);
   z-index: 9999;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 20px;
+  padding: 40px 20px 20px;
   backdrop-filter: blur(4px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .vc-modal-overlay.open {
   display: flex;
+}
+@media (max-width: 768px) {
+  .vc-modal-overlay {
+    padding: 20px 16px;
+    align-items: flex-start;
+  }
 }
 
 .vc-modal {
@@ -678,7 +687,7 @@ body {
   <div class="vc-grid" id="vcGrid">
 
     <!-- ===== Банк Средней Азии (был Банк О) ===== -->
-    <div class="vc-card" data-tags="no-poa rf-withdraw">
+    <div class="vc-card" data-tags="no-poa rf-withdraw" data-price="34990">
       <div class="vc-card__head">
         <div class="vc-card__bank">Банк Средней Азии</div>
         <div class="vc-card__bottom">
@@ -718,7 +727,7 @@ body {
     </div>
 
     <!-- ===== Банк К (был ККБ) ===== -->
-    <div class="vc-card" data-tags="no-poa rf-withdraw credit google-pay">
+    <div class="vc-card" data-tags="no-poa rf-withdraw credit google-pay" data-price="27990">
       <div class="vc-card__head">
         <div class="vc-card__bank">Банк К</div>
         <div class="vc-card__bottom">
@@ -759,7 +768,7 @@ body {
     </div>
 
     <!-- ===== Банк АЙ (был Айыл) ===== -->
-    <div class="vc-card" data-tags="rf-withdraw credit">
+    <div class="vc-card" data-tags="rf-withdraw credit" data-price="17990">
       <div class="vc-card__head">
         <div class="vc-card__bank">Банк АЙ</div>
         <div class="vc-card__bottom">
@@ -799,7 +808,7 @@ body {
     </div>
 
     <!-- ===== Банк Кыргызстан (был Бакай) ===== -->
-    <div class="vc-card" data-tags="credit google-pay">
+    <div class="vc-card" data-tags="credit google-pay" data-price="28990">
       <div class="vc-card__head">
         <div class="vc-card__bank">Банк Кыргызстан</div>
         <div class="vc-card__bottom">
@@ -840,7 +849,7 @@ body {
     </div>
 
     <!-- ===== Банк М (был Мбанк) ===== -->
-    <div class="vc-card" data-tags="google-pay">
+    <div class="vc-card" data-tags="google-pay" data-price="17990">
       <div class="vc-card__head">
         <div class="vc-card__bank">Банк М</div>
         <div class="vc-card__bottom">
@@ -882,7 +891,7 @@ body {
     </div>
 
     <!-- ===== КШБ ===== -->
-    <div class="vc-card" data-tags="no-poa credit rf-withdraw google-pay swift-out">
+    <div class="vc-card" data-tags="no-poa credit rf-withdraw google-pay swift-out" data-price="999999">
       <div class="vc-card__head">
         <div class="vc-card__bank">КШБ (Кыргызстан)</div>
         <div class="vc-card__bottom">
@@ -924,7 +933,7 @@ body {
     </div>
 
     <!-- ===== Джусан (Казахстан) ===== -->
-    <div class="vc-card" data-tags="apple-pay google-pay multi">
+    <div class="vc-card" data-tags="apple-pay google-pay multi" data-price="0">
       <div class="vc-card__head vc-card__head--kz">
         <div class="vc-card__bank">Джусан (Казахстан)</div>
         <div class="vc-card__bottom">
@@ -967,8 +976,8 @@ body {
       </div>
     </div>
 
-    <!-- ===== Фридом (Казахстан) — временно неактивен ===== -->
-    <div class="vc-card" data-tags="apple-pay multi credit">
+    <!-- Фридом убран по запросу -->
+    <!-- <div class="vc-card" data-tags="apple-pay multi credit">
       <div class="vc-card__head vc-card__head--inactive">
         <div class="vc-pause-badge">Пауза</div>
         <div class="vc-card__bank">Фридом (Казахстан)</div>
@@ -1009,10 +1018,10 @@ body {
         </div>
         <button class="vc-btn" onclick="vcOpenModal('Фридом (Казахстан)')">Оформить карту</button>
       </div>
-    </div>
+    </div> -->
 
     <!-- ===== Альфа РБ ===== -->
-    <div class="vc-card" data-tags="credit apple-pay multi rf-withdraw">
+    <div class="vc-card" data-tags="credit apple-pay multi rf-withdraw" data-price="999999">
       <div class="vc-card__head vc-card__head--by">
         <div class="vc-card__bank">Альфа РБ (Беларусь)</div>
         <div class="vc-card__bottom">
@@ -1055,7 +1064,7 @@ body {
     </div>
 
     <!-- ===== Банк СНГ ===== -->
-    <div class="vc-card" data-tags="credit no-poa rf-withdraw google-pay">
+    <div class="vc-card" data-tags="credit no-poa rf-withdraw google-pay" data-price="18990">
       <div class="vc-card__head">
         <div class="vc-card__bank">Банк СНГ</div>
         <div class="vc-card__bottom">
@@ -1097,7 +1106,7 @@ body {
     </div>
 
     <!-- ===== Банк Solo (Грузия) ===== -->
-    <div class="vc-card" data-tags="apple-pay google-pay multi swift-out">
+    <div class="vc-card" data-tags="apple-pay google-pay multi swift-out" data-price="32990">
       <div class="vc-card__head vc-card__head--ge">
         <div class="vc-card__bank">Банк Solo (Грузия)</div>
         <div class="vc-card__bottom">
@@ -1141,7 +1150,7 @@ body {
     </div>
 
     <!-- ===== Банк Арцах (Армения) ===== -->
-    <div class="vc-card" data-tags="credit rf-withdraw apple-pay google-pay">
+    <div class="vc-card" data-tags="credit rf-withdraw apple-pay google-pay" data-price="23990">
       <div class="vc-card__head vc-card__head--am">
         <div class="vc-card__bank">Банк Арцах (Армения)</div>
         <div class="vc-card__bottom">
@@ -1184,7 +1193,7 @@ body {
     </div>
 
     <!-- ===== Банк Армении премиум (IDBank) ===== -->
-    <div class="vc-card" data-tags="credit swift-out apple-pay google-pay">
+    <div class="vc-card" data-tags="credit swift-out apple-pay google-pay" data-price="39990">
       <div class="vc-card__head vc-card__head--am">
         <div class="vc-card__bank">Банк Армении премиум</div>
         <div class="vc-card__bottom">
@@ -1227,7 +1236,7 @@ body {
     </div>
 
     <!-- ===== Банк Армения (Amio) ===== -->
-    <div class="vc-card" data-tags="credit swift-out apple-pay google-pay">
+    <div class="vc-card" data-tags="credit swift-out apple-pay google-pay" data-price="19990">
       <div class="vc-card__head vc-card__head--am">
         <div class="vc-card__bank">Банк Армения</div>
         <div class="vc-card__bottom">
@@ -1270,7 +1279,7 @@ body {
     </div>
 
     <!-- ===== Банк Узбекистан (Octobank) ===== -->
-    <div class="vc-card" data-tags="credit swift-out rf-withdraw">
+    <div class="vc-card" data-tags="credit swift-out rf-withdraw" data-price="46990">
       <div class="vc-card__head vc-card__head--uz">
         <div class="vc-card__bank">Банк Узбекистан</div>
         <div class="vc-card__bottom">
@@ -1309,7 +1318,7 @@ body {
     </div>
 
     <!-- ===== Банк Турция (Ziraat) ===== -->
-    <div class="vc-card" data-tags="credit swift-out multi">
+    <div class="vc-card" data-tags="credit swift-out multi" data-price="88990">
       <div class="vc-card__head vc-card__head--tr">
         <div class="vc-card__bank">Банк Турция</div>
         <div class="vc-card__bottom">
@@ -1387,10 +1396,10 @@ body {
 <!-- ===================== MODAL END ===================== -->
 
 <script>
-// ---- Filter logic (shared) ----
+// ---- Filter + Sort logic ----
 const vcTabs = document.querySelectorAll('.vc-tab');
-const vcCards = document.querySelectorAll('.vc-card:not(.vc-empty)');
 const vcEmpty = document.getElementById('vcEmpty');
+const vcGrid = document.getElementById('vcGrid');
 
 const filterLabels = {
   'all': 'Все карты',
@@ -1404,8 +1413,15 @@ const filterLabels = {
 };
 
 function vcApplyFilter(filter) {
+  // Сортируем карточки по цене перед отображением
+  const allCards = Array.from(vcGrid.querySelectorAll('.vc-card:not(.vc-empty)'));
+  allCards.sort((a, b) => {
+    return parseInt(a.dataset.price || 999999) - parseInt(b.dataset.price || 999999);
+  });
+  allCards.forEach(card => vcGrid.insertBefore(card, vcEmpty));
+
   let count = 0;
-  vcCards.forEach(card => {
+  allCards.forEach(card => {
     const tags = (card.dataset.tags || '').split(' ');
     const show = filter === 'all' || tags.includes(filter);
     card.classList.toggle('hidden', !show);
@@ -1422,6 +1438,9 @@ vcTabs.forEach(tab => {
     vcApplyFilter(tab.dataset.filter);
   });
 });
+
+// Сразу сортируем при загрузке
+vcApplyFilter('all');
 
 // Mobile dropdown
 const vcFilterTrigger = document.getElementById('vcFilterTrigger');
@@ -1480,13 +1499,16 @@ function vcOpenModal(bankName) {
   vcModalSuccessEl.style.display = 'none';
   document.getElementById('vcForm').reset();
   vcOverlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
+  // Не блокируем body scroll — мешает в iframe на мобильных
+  // Скроллим страницу наверх чтобы модалка была видна
+  try { window.parent.scrollTo({ top: window.parent.pageYOffset, behavior: 'instant' }); } catch(e) {}
+  // Скроллим до верха внутри iframe
+  window.scrollTo(0, 0);
   setTimeout(() => document.getElementById('vcName').focus(), 200);
 }
 
 function vcCloseModal() {
   vcOverlay.classList.remove('open');
-  document.body.style.overflow = '';
 }
 
 // Закрытие по клику на оверлей
