@@ -942,9 +942,7 @@ html, body {
       </div>
     </div>
 
-    <!-- ДЖУСАН УБРАН
     <!-- ДЖУСАН УБРАН -->
-    -->
 
     <!-- Фридом убран по запросу -->
     <!-- <div class="vc-card" data-tags="apple-pay multi credit">
@@ -1515,6 +1513,19 @@ document.getElementById('vcForm').addEventListener('submit', function(e) {
     });
 });
 
+
+// ---- Авторесайз iframe ----
+// Сообщаем Tilda реальную высоту документа чтобы iframe растянулся
+function vcSendHeight() {
+  var h = document.body.scrollHeight;
+  try { window.parent.postMessage({ type: 'vcHeight', height: h }, '*'); } catch(e) {}
+}
+vcSendHeight();
+window.addEventListener('resize', vcSendHeight);
+// Отслеживаем изменение DOM (фильтры скрывают/показывают карточки)
+if (window.MutationObserver) {
+  new MutationObserver(vcSendHeight).observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
+}
 
 </script>
 
