@@ -367,23 +367,23 @@ body {
 .vc-modal-overlay {
   display: none;
   position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.55);
   z-index: 9999;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  padding: 40px 20px 20px;
+  padding: 20px;
   backdrop-filter: blur(4px);
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  -webkit-backdrop-filter: blur(4px);
 }
 .vc-modal-overlay.open {
   display: flex;
 }
 @media (max-width: 768px) {
   .vc-modal-overlay {
-    padding: 20px 16px;
     align-items: flex-start;
+    padding: 16px;
+    overflow-y: auto;
   }
 }
 
@@ -932,6 +932,7 @@ body {
       </div>
     </div>
 
+    <!-- ДЖУСАН УБРАН
     <!-- ===== Джусан (Казахстан) ===== -->
     <div class="vc-card" data-tags="apple-pay google-pay multi" data-price="0">
       <div class="vc-card__head vc-card__head--kz">
@@ -975,6 +976,7 @@ body {
         <button class="vc-btn" onclick="vcOpenModal('Джусан (Казахстан)')">Оформить карту</button>
       </div>
     </div>
+    -->
 
     <!-- Фридом убран по запросу -->
     <!-- <div class="vc-card" data-tags="apple-pay multi credit">
@@ -1499,16 +1501,18 @@ function vcOpenModal(bankName) {
   vcModalSuccessEl.style.display = 'none';
   document.getElementById('vcForm').reset();
   vcOverlay.classList.add('open');
-  // Не блокируем body scroll — мешает в iframe на мобильных
-  // Скроллим страницу наверх чтобы модалка была видна
-  try { window.parent.scrollTo({ top: window.parent.pageYOffset, behavior: 'instant' }); } catch(e) {}
-  // Скроллим до верха внутри iframe
-  window.scrollTo(0, 0);
-  setTimeout(() => document.getElementById('vcName').focus(), 200);
+
+  // Сообщаем родительской странице Tilda:
+  // 1. Прокрутиться к началу iframe чтобы модалка была видна
+  // 2. Заблокировать скролл родительской страницы
+  window.parent.postMessage({ type: 'vcModal', action: 'open' }, '*');
+
+  setTimeout(() => document.getElementById('vcName').focus(), 300);
 }
 
 function vcCloseModal() {
   vcOverlay.classList.remove('open');
+  window.parent.postMessage({ type: 'vcModal', action: 'close' }, '*');
 }
 
 // Закрытие по клику на оверлей
