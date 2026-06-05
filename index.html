@@ -463,147 +463,6 @@ html, body {
   background: #4a7c3f;
 }
 
-/* ===== MODAL ===== */
-.vc-modal-overlay {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.55);
-  z-index: 99999;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-  box-sizing: border-box;
-}
-.vc-modal-overlay.open {
-  display: flex;
-}
-
-.vc-modal {
-  background: #fff;
-  border-radius: 20px;
-  padding: 36px 32px 32px;
-  width: 100%;
-  max-width: 440px;
-  position: relative;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.22);
-  font-family: 'Manrope', sans-serif;
-  animation: vcModalIn 0.22s cubic-bezier(.4,0,.2,1);
-}
-@keyframes vcModalIn {
-  from { opacity: 0; transform: scale(0.94) translateY(12px); }
-  to   { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-.vc-modal__close {
-  position: absolute;
-  top: 14px;
-  right: 16px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 6px;
-  color: #aaa;
-  line-height: 1;
-  font-size: 22px;
-  border-radius: 50%;
-  transition: color 0.15s, background 0.15s;
-}
-.vc-modal__close:hover { color: #333; background: #f5f5f5; }
-
-.vc-modal__title {
-  font-size: 20px;
-  font-weight: 800;
-  color: #1a1a1a;
-  margin-bottom: 6px;
-  line-height: 1.25;
-}
-.vc-modal__subtitle {
-  font-size: 13.5px;
-  color: #999;
-  margin-bottom: 24px;
-  line-height: 1.4;
-}
-
-.vc-modal__label {
-  display: block;
-  font-size: 12px;
-  font-weight: 600;
-  color: #666;
-  margin-bottom: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-.vc-modal__input {
-  width: 100%;
-  padding: 13px 16px;
-  border: 1.5px solid #ddd;
-  border-radius: 12px;
-  font-family: 'Manrope', sans-serif;
-  font-size: 15px;
-  font-weight: 500;
-  color: #1a1a1a;
-  margin-bottom: 14px;
-  background: #fafafa;
-  transition: border-color 0.18s, background 0.18s;
-  outline: none;
-  box-sizing: border-box;
-}
-.vc-modal__input:focus {
-  border-color: #4a7c3f;
-  background: #fff;
-}
-.vc-modal__input::placeholder { color: #bbb; font-weight: 400; }
-
-.vc-modal__or {
-  text-align: center;
-  font-size: 12px;
-  color: #bbb;
-  margin: -4px 0 14px;
-  font-weight: 500;
-}
-
-.vc-modal__submit {
-  width: 100%;
-  padding: 15px;
-  background: #c5b876;
-  color: #2a2000;
-  font-family: 'Manrope', sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: background 0.18s, transform 0.15s;
-  margin-top: 6px;
-}
-.vc-modal__submit:hover { background: #b5a862; transform: translateY(-1px); }
-.vc-modal__submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-
-.vc-modal__success {
-  display: none;
-  text-align: center;
-  padding: 20px 0 10px;
-}
-.vc-modal__success-icon {
-  width: 56px; height: 56px;
-  background: #4a7c3f;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 16px;
-}
-.vc-modal__success-title {
-  font-size: 18px;
-  font-weight: 800;
-  color: #1a1a1a;
-  margin-bottom: 8px;
-}
-.vc-modal__success-text {
-  font-size: 14px;
-  color: #777;
-  line-height: 1.5;
-}
-
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1080px) {
   .vc-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1324,44 +1183,6 @@ html, body {
 
 
 
-<!-- ===== MODAL FORM ===== -->
-<div class="vc-modal-overlay" id="vcModalOverlay">
-  <div class="vc-modal">
-    <button class="vc-modal__close" onclick="vcCloseModal()" aria-label="Закрыть">&#x2715;</button>
-
-    <!-- Form state -->
-    <div id="vcModalForm">
-      <div class="vc-modal__title">Оформить карту</div>
-      <div class="vc-modal__subtitle">Оставьте контакт — наш менеджер свяжется с вами и поможет с оформлением</div>
-
-      <label class="vc-modal__label">Ваше имя</label>
-      <input class="vc-modal__input" id="vcFieldName" type="text" placeholder="Иван Иванов" autocomplete="name">
-
-      <label class="vc-modal__label">Номер телефона</label>
-      <input class="vc-modal__input" id="vcFieldPhone" type="tel" placeholder="+7 900 000 00 00" autocomplete="tel">
-
-      <div class="vc-modal__or">— или —</div>
-
-      <label class="vc-modal__label">Ник в Telegram</label>
-      <input class="vc-modal__input" id="vcFieldTg" type="text" placeholder="@username">
-
-      <div id="vcModalError" style="display:none;color:#c0392b;font-size:13px;margin-bottom:10px;font-family:'Manrope',sans-serif;"></div>
-
-      <button class="vc-modal__submit" id="vcModalSubmit" onclick="vcSubmitForm()">Отправить заявку</button>
-    </div>
-
-    <!-- Success state -->
-    <div class="vc-modal__success" id="vcModalSuccess">
-      <div class="vc-modal__success-icon">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-          <path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <div class="vc-modal__success-title">Заявка принята!</div>
-      <div class="vc-modal__success-text">Наш менеджер свяжется с вами<br>в ближайшее время.</div>
-    </div>
-  </div>
-</div>
 
 <script>
 // ---- Filter + Sort logic ----
@@ -1452,11 +1273,8 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// ---- Модальная форма ----
-var vcCurrentCard = '';
-
+// ---- Отправка заявки через postMessage на родительскую страницу (Tilda) ----
 function vcGoToForm(cardName, btnEl) {
-  // Если название не передано явно — берём из карточки
   if (!cardName && btnEl) {
     var card = btnEl.closest('.vc-card');
     if (card) {
@@ -1464,101 +1282,12 @@ function vcGoToForm(cardName, btnEl) {
       cardName = bankEl ? bankEl.textContent.trim() : '';
     }
   }
-  vcCurrentCard = cardName || '';
-  // Сбросить форму
-  document.getElementById('vcFieldName').value = '';
-  document.getElementById('vcFieldPhone').value = '';
-  document.getElementById('vcFieldTg').value = '';
-  document.getElementById('vcModalError').style.display = 'none';
-  document.getElementById('vcModalForm').style.display = '';
-  document.getElementById('vcModalSuccess').style.display = 'none';
-  document.getElementById('vcModalSubmit').disabled = false;
-  document.getElementById('vcModalSubmit').textContent = 'Отправить заявку';
-  var overlay = document.getElementById('vcModalOverlay');
-  overlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
-  // Сообщаем родительской странице проскроллить к iframe
-  // чтобы на мобильном fixed оверлей попал в видимую зону
   try {
-    window.parent.postMessage({ type: 'vcOpenForm' }, '*');
+    window.parent.postMessage({
+      type: 'vcOpenModal',
+      card: cardName || ''
+    }, '*');
   } catch(e) {}
-  // Фокус на имя
-  setTimeout(function() {
-    document.getElementById('vcFieldName').focus();
-  }, 150);
-}
-
-function vcCloseModal() {
-  var overlay = document.getElementById('vcModalOverlay');
-  overlay.classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-// Закрытие по клику на оверлей (не на само окно)
-document.getElementById('vcModalOverlay').addEventListener('click', function(e) {
-  if (e.target === this) vcCloseModal();
-});
-
-// Закрытие по Escape
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') vcCloseModal();
-});
-
-function vcSubmitForm() {
-  var name = document.getElementById('vcFieldName').value.trim();
-  var phone = document.getElementById('vcFieldPhone').value.trim();
-  var tg = document.getElementById('vcFieldTg').value.trim();
-  var errEl = document.getElementById('vcModalError');
-
-  // Валидация: нужно имя + (телефон или телеграм)
-  if (!name) {
-    errEl.textContent = 'Пожалуйста, укажите ваше имя';
-    errEl.style.display = 'block';
-    document.getElementById('vcFieldName').focus();
-    return;
-  }
-  if (!phone && !tg) {
-    errEl.textContent = 'Укажите номер телефона или ник в Telegram';
-    errEl.style.display = 'block';
-    return;
-  }
-  errEl.style.display = 'none';
-
-  var btn = document.getElementById('vcModalSubmit');
-  btn.disabled = true;
-  btn.textContent = 'Отправляем...';
-
-  // Формируем сообщение
-  var contact = phone ? ('📞 ' + phone) : '';
-  if (tg) contact += (contact ? '\n' : '') + '✈️ Telegram: ' + tg;
-  var card = vcCurrentCard ? ('\n🏦 Карта: ' + vcCurrentCard) : '';
-  var msg = '🆕 Новая заявка с сайта viengo.ru\n'
-          + '👤 Имя: ' + name + '\n'
-          + contact
-          + card;
-
-  var BOT = '8050108442:AAEJR3h2zQ9Z-Hzf1BOaY7Gthd8qdn7eomg';
-  var CHAT = '213311548';
-
-  fetch('https://api.telegram.org/bot' + BOT + '/sendMessage', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ chat_id: CHAT, text: msg })
-  })
-  .then(function(r) { return r.json(); })
-  .then(function(data) {
-    // Показать успех
-    document.getElementById('vcModalForm').style.display = 'none';
-    document.getElementById('vcModalSuccess').style.display = 'block';
-    // Закрыть через 3 сек
-    setTimeout(vcCloseModal, 3000);
-  })
-  .catch(function() {
-    // Даже если ошибка — показываем успех (заявка могла уйти)
-    document.getElementById('vcModalForm').style.display = 'none';
-    document.getElementById('vcModalSuccess').style.display = 'block';
-    setTimeout(vcCloseModal, 3000);
-  });
 }
 
 // ---- Авторесайз iframe ----
