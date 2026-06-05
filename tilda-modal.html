@@ -17,8 +17,8 @@
 #vcTildaModal {
   background: #fff;
   border-radius: 20px;
-  padding: 36px 32px 32px;
-  width: 100%;
+  padding: 36px 24px 28px;
+  width: calc(100% - 32px);
   max-width: 440px;
   position: relative;
   box-shadow: 0 20px 60px rgba(0,0,0,0.25);
@@ -26,6 +26,7 @@
   animation: vcIn 0.22s cubic-bezier(.4,0,.2,1);
   max-height: 90vh;
   overflow-y: auto;
+  box-sizing: border-box;
 }
 @keyframes vcIn {
   from { opacity: 0; transform: scale(0.94) translateY(12px); }
@@ -92,6 +93,8 @@
   border: none; border-radius: 50px;
   cursor: pointer; margin-top: 6px;
   transition: background 0.18s;
+  display: block;
+  box-sizing: border-box;
 }
 .vct-btn:hover { background: #b5a862; }
 .vct-btn:disabled { opacity: 0.6; cursor: not-allowed; }
@@ -132,11 +135,6 @@
       <label class="vct-label">Номер телефона</label>
       <input class="vct-input" id="vcTPhone" type="tel" placeholder="+7 900 000 00 00" autocomplete="tel">
 
-      <div class="vct-or">— или —</div>
-
-      <label class="vct-label">Ник в Telegram</label>
-      <input class="vct-input" id="vcTTg" type="text" placeholder="@username">
-
       <div id="vcTildaError"></div>
 
       <button class="vct-btn" id="vcTildaSubmit" onclick="vcTSubmit()">Отправить заявку</button>
@@ -168,7 +166,6 @@ window.addEventListener('message', function(e) {
 function vcTOpen() {
   document.getElementById('vcTName').value = '';
   document.getElementById('vcTPhone').value = '';
-  document.getElementById('vcTTg').value = '';
   document.getElementById('vcTildaError').style.display = 'none';
   document.getElementById('vcTildaForm').style.display = '';
   document.getElementById('vcTildaSuccess').style.display = 'none';
@@ -197,7 +194,7 @@ document.addEventListener('keydown', function(e) {
 function vcTSubmit() {
   var name  = document.getElementById('vcTName').value.trim();
   var phone = document.getElementById('vcTPhone').value.trim();
-  var tg    = document.getElementById('vcTTg').value.trim();
+  var tg    = '';
   var err   = document.getElementById('vcTildaError');
 
   if (!name) {
