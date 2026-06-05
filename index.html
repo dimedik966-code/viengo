@@ -11,9 +11,10 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-body {
+html, body {
   background: #fff;
   font-family: 'Manrope', -apple-system, sans-serif;
+  height: auto;
 }
 
 /* ===== SECTION ===== */
@@ -466,12 +467,13 @@ body {
 .vc-modal-overlay {
   display: none;
   position: fixed;
-  inset: 0;
+  top: 0; left: 0; right: 0; bottom: 0;
   background: rgba(0,0,0,0.55);
-  z-index: 9999;
+  z-index: 99999;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 16px;
+  box-sizing: border-box;
 }
 .vc-modal-overlay.open {
   display: flex;
@@ -1472,18 +1474,23 @@ function vcGoToForm(cardName, btnEl) {
   document.getElementById('vcModalSuccess').style.display = 'none';
   document.getElementById('vcModalSubmit').disabled = false;
   document.getElementById('vcModalSubmit').textContent = 'Отправить заявку';
-  // Открыть оверлей
-  document.getElementById('vcModalOverlay').classList.add('open');
-  // Заблокировать прокрутку страницы (внутри iframe)
+  var overlay = document.getElementById('vcModalOverlay');
+  overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
+  // Сообщаем родительской странице проскроллить к iframe
+  // чтобы на мобильном fixed оверлей попал в видимую зону
+  try {
+    window.parent.postMessage({ type: 'vcOpenForm' }, '*');
+  } catch(e) {}
   // Фокус на имя
   setTimeout(function() {
     document.getElementById('vcFieldName').focus();
-  }, 100);
+  }, 150);
 }
 
 function vcCloseModal() {
-  document.getElementById('vcModalOverlay').classList.remove('open');
+  var overlay = document.getElementById('vcModalOverlay');
+  overlay.classList.remove('open');
   document.body.style.overflow = '';
 }
 
