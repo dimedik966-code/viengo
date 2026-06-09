@@ -463,6 +463,29 @@ html, body {
   background: #4a7c3f;
 }
 
+/* ===== BADGE ===== */
+.vc-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  z-index: 2;
+  pointer-events: none;
+}
+.vc-badge--recommend {
+  background: #c5b876;
+  color: #2a2000;
+}
+.vc-badge--popular {
+  background: #fff;
+  color: #4a7c3f;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1080px) {
   .vc-grid { grid-template-columns: repeat(2, 1fr); }
@@ -490,7 +513,7 @@ html, body {
   <div class="vc-tabs" role="tablist">
     <button class="vc-tab active" data-filter="all">Все</button>
     <button class="vc-tab" data-filter="no-poa">Без доверенности</button>
-    <button class="vc-tab" data-filter="credit">Кредитная</button>
+    <button class="vc-tab" data-filter="credit">Аренда авто</button>
     <button class="vc-tab" data-filter="google-pay">Google Pay</button>
     <button class="vc-tab" data-filter="apple-pay">Apple Pay</button>
     <button class="vc-tab" data-filter="multi">Мультивалютная</button>
@@ -514,7 +537,7 @@ html, body {
         <span class="vc-filter-option-dot"></span>Без доверенности
       </button>
       <button class="vc-filter-option" data-filter="credit" role="option">
-        <span class="vc-filter-option-dot"></span>Кредитная
+        <span class="vc-filter-option-dot"></span>Аренда авто
       </button>
       <button class="vc-filter-option" data-filter="google-pay" role="option">
         <span class="vc-filter-option-dot"></span>Google Pay
@@ -537,10 +560,10 @@ html, body {
   <!-- Cards grid -->
   <div class="vc-grid" id="vcGrid">
 
-    <!-- ===== Банк Средней Азии (был Банк О) ===== -->
+    <!-- ===== Банк О ===== -->
     <div class="vc-card" data-tags="no-poa rf-withdraw" data-price="34990">
       <div class="vc-card__head">
-        <div class="vc-card__bank">Банк Средней Азии</div>
+        <div class="vc-card__bank">Банк О</div>
         <div class="vc-card__bottom">
           <div class="vc-visa">VISA</div>
           <div class="vc-card__price">34 990 ₽<small>+ доставка</small></div>
@@ -660,7 +683,8 @@ html, body {
 
     <!-- ===== Банк Кыргызстан (был Бакай) ===== -->
     <div class="vc-card" data-tags="credit google-pay" data-price="28990">
-      <div class="vc-card__head">
+      <div class="vc-card__head" style="position:relative;">
+        <span class="vc-badge vc-badge--popular">Популярно</span>
         <div class="vc-card__bank">Банк Кыргызстан</div>
         <div class="vc-card__bottom">
           <div class="vc-visa">VISA</div>
@@ -914,10 +938,10 @@ html, body {
       </div>
     </div>
 
-    <!-- ===== Банк Solo (Грузия) ===== -->
+    <!-- ===== Банк Грузии ===== -->
     <div class="vc-card" data-tags="apple-pay google-pay multi swift-out" data-price="32990">
       <div class="vc-card__head vc-card__head--ge">
-        <div class="vc-card__bank">Банк Solo (Грузия)</div>
+        <div class="vc-card__bank">Банк Грузии</div>
         <div class="vc-card__bottom">
           <div class="vc-visa">VISA / MC</div>
           <div class="vc-card__price">32 990 ₽</div>
@@ -958,10 +982,11 @@ html, body {
       </div>
     </div>
 
-    <!-- ===== Банк Арцах (Армения) ===== -->
+    <!-- ===== Банк Армении ===== -->
     <div class="vc-card" data-tags="credit rf-withdraw apple-pay google-pay" data-price="23990">
-      <div class="vc-card__head vc-card__head--am">
-        <div class="vc-card__bank">Банк Арцах (Армения)</div>
+      <div class="vc-card__head vc-card__head--am" style="position:relative;">
+        <span class="vc-badge vc-badge--recommend">Рекомендуем</span>
+        <div class="vc-card__bank">Банк Армении</div>
         <div class="vc-card__bottom">
           <div class="vc-visa">VISA</div>
           <div class="vc-card__price">23 990 ₽</div>
@@ -1001,10 +1026,10 @@ html, body {
       </div>
     </div>
 
-    <!-- ===== Банк Армении премиум (IDBank) ===== -->
+    <!-- ===== Банк Армении Business ===== -->
     <div class="vc-card" data-tags="credit swift-out apple-pay google-pay" data-price="39990">
       <div class="vc-card__head vc-card__head--am">
-        <div class="vc-card__bank">Банк Армении премиум</div>
+        <div class="vc-card__bank">Банк Армении Business</div>
         <div class="vc-card__bottom">
           <div class="vc-visa">VISA</div>
           <div class="vc-card__price">39 990 ₽</div>
@@ -1044,10 +1069,10 @@ html, body {
       </div>
     </div>
 
-    <!-- ===== Банк Армения (Amio) ===== -->
+    <!-- ===== Банк Армении Private ===== -->
     <div class="vc-card" data-tags="credit swift-out apple-pay google-pay" data-price="19990">
       <div class="vc-card__head vc-card__head--am">
-        <div class="vc-card__bank">Банк Армения</div>
+        <div class="vc-card__bank">Банк Армении Private</div>
         <div class="vc-card__bottom">
           <div class="vc-visa">VISA</div>
           <div class="vc-card__price">19 990 ₽</div>
@@ -1126,10 +1151,10 @@ html, body {
       </div>
     </div>
 
-    <!-- ===== Банк Турция (Ziraat) ===== -->
+    <!-- ===== Банк Турции ===== -->
     <div class="vc-card" data-tags="credit swift-out multi" data-price="88990">
       <div class="vc-card__head vc-card__head--tr">
-        <div class="vc-card__bank">Банк Турция</div>
+        <div class="vc-card__bank">Банк Турции</div>
         <div class="vc-card__bottom">
           <div class="vc-visa">VISA / Troy</div>
           <div class="vc-card__price">88 990 ₽</div>
