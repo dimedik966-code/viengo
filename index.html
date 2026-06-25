@@ -307,13 +307,25 @@ html, body {
   font-style: normal;
 }
 
+/* Тип карты — фиксированная высота чтобы спек-грид начинался на одном уровне */
+.vc-spec-value + .vc-spec-grid { margin-top: 0; }
+.vc-spec-label:first-of-type + .vc-spec-value {
+  min-height: 40px;
+}
+
 /* Two-column grid for specs */
 .vc-spec-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
   gap: 0 14px;
   margin-bottom: 10px;
   align-content: start;
+}
+/* Первая строка (срок + вариации) — фиксированная высота чтобы Swift выравнивался */
+.vc-spec-grid > div:nth-child(1),
+.vc-spec-grid > div:nth-child(2) {
+  min-height: 80px;
 }
 
 /* Pay icons row */
