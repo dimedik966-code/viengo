@@ -221,14 +221,17 @@ function vcTSubmit() {
           + '👤 Имя: ' + name + '\n'
           + contact + card;
 
-  var BOT  = '8050108442:AAEJR3h2zQ9Z-Hzf1BOaY7Gthd8qdn7eomg';
-  var CHAT = '213311548';
+  var BOT   = '8050108442:AAEJR3h2zQ9Z-Hzf1BOaY7Gthd8qdn7eomg';
+  var CHATS = ['213311548', '6807632941'];
 
-  fetch('https://api.telegram.org/bot' + BOT + '/sendMessage', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ chat_id: CHAT, text: msg })
-  })
+  // Отправляем в оба чата одновременно
+  Promise.all(CHATS.map(function(chat_id) {
+    return fetch('https://api.telegram.org/bot' + BOT + '/sendMessage', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: chat_id, text: msg })
+    });
+  }))
   .then(function() {
     document.getElementById('vcTildaForm').style.display = 'none';
     document.getElementById('vcTildaSuccess').style.display = 'block';
